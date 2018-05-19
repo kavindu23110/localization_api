@@ -10,10 +10,10 @@ module.exports = {
 
 
 register:function(req,res){
-var username = req.param("email");
-var password= req.param("password");
+var values = req.allParams();
+
 var user={
-  username:username,password:password
+username:values.username,password:values.password
 };
 Auth.create(user).exec(function(err,result){
  if (err) {
@@ -21,11 +21,7 @@ Auth.create(user).exec(function(err,result){
    return res.json(500, { error: "Some error occured" });
  }
  sails.log.debug("Success", JSON.stringify(result));
- return res.json(200, {
-   success: req.param("password")
-
-
- });
+ return res.json(200, { success: req.allParams() });
 
 });
 
