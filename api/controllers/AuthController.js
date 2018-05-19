@@ -4,13 +4,13 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
- const passport = require('passport');
+
 module.exports = {
 
 
 
 register:function(req,res){
-var username = req.param("username");
+var username = req.param("email");
 var password= req.param("password");
 var user={
   username:username,password:password
@@ -22,7 +22,9 @@ Auth.create(user).exec(function(err,result){
  }
  sails.log.debug("Success", JSON.stringify(result));
  return res.json(200, {
-   success:'success'
+   success: req.param("password")
+
+
  });
 
 });
